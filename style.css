@@ -12,6 +12,7 @@
     --sombra: rgba(0, 0, 0, 0.15);
     --texto: #003049; 
     --corazon: #ff477e; 
+    /* Variables agregadas para control dinámico de tamaño */
     --ancho-sobre: 530px;
     --alto-sobre: 380px;
 }
@@ -22,6 +23,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    /* Cambiado a auto para permitir scroll en móviles si la pantalla es muy pequeña */
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -190,6 +192,7 @@ h1.titulo-superior {
     left: 0;
     right: 0;
     z-index: 4;
+    /* Se adaptaron los bordes usando porcentajes del ancho */
     border-top: calc(var(--alto-sobre) * 0.58) solid var(--solapa-sobre);
     border-right: calc(var(--ancho-sobre) / 2) solid transparent;
     border-left: calc(var(--ancho-sobre) / 2) solid transparent;
@@ -250,7 +253,7 @@ h1.titulo-superior {
     cursor: pointer;
     overflow-y: scroll;
     background-color: rgba(255, 255, 255, 0.5); 
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch; /* Suavizado de scroll en iOS */
 }
 
 .contenido strong {
@@ -330,9 +333,10 @@ h1.titulo-superior {
     transition: transform .5s ease-in-out;
 }
 
+/* En teléfonos la carta subirá un poco menos para evitar salirse de la pantalla */
 @media (max-width: 768px) {
     .carta.mostrar-carta {
-        transform: translateY(-280px);
+        transform: translateY(-110px); /* Modificado para quedar abajo del video */
     }
 }
 
@@ -349,19 +353,23 @@ h1.titulo-superior {
     pointer-events: none;
 }
 
+/* ==========================================================================
+   MÓDULO RESPONSIVE (MÓVILES Y TABLETS)
+   ========================================================================== */
 @media (max-width: 768px) {
     :root {
+        /* Encogemos proporcionalmente el sobre para pantallas móviles */
         --ancho-sobre: 330px;
         --alto-sobre: 240px;
     }
 
     body {
-        align-items: flex-start;
+        align-items: flex-start; /* Evita cortes extraños */
         padding: 20px 10px;
     }
 
     .contenedor-principal {
-        flex-direction: column;
+        flex-direction: column; /* Apila video y carta verticalmente */
         height: auto;
         width: 100%;
         gap: 30px;
@@ -374,27 +382,28 @@ h1.titulo-superior {
     }
 
     h1.titulo-superior {
-        font-size: 32px; 
+        font-size: 32px; /* Letra más chica para que no se desborde */
         line-height: 38px;
         text-align: center;
-        white-space: normal; 
+        white-space: normal; /* Permite saltos de línea en celulares */
         margin-bottom: 20px;
     }
 
     #contenedor-video {
         width: 100%;
         max-width: 340px;
-        margin-left: 0;
+        margin-left: 0; /* Quitamos el margen izquierdo molesto */
     }
 
     .columna-derecha {
         width: 100%;
         justify-content: center;
-        padding-bottom: 40px; 
+        padding-top: 120px; /* Espacio extra para que la carta abra hacia arriba sin tapar el video */
+        padding-bottom: 40px; /* Margen final para el scroll del cel */
     }
 
     .contenido {
-        font-size: 13px; 
+        font-size: 13px; /* Texto un poquito más compacto y legible */
         padding: 12px;
         line-height: 20px;
     }
